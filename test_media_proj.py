@@ -121,10 +121,27 @@ class test_country_class(unittest.TestCase):
 class test_plotly_mapping(unittest.TestCase):
     ### I can't test that the plots are created correctly, but I can test that the functions don't produce errors.
     def test_plot_for_country_in_day(self):
-        pass
-        # plot_country_day('russia')
+        Country.drop_collection()
+        Article.drop_collection()
+        [article_1, article_2, article_3] = [Article("title1", "text1", "link1"), Article("title2", "text2", "link2"), Article("title3", "text3", "link3")]
+        article_1.bias = 1.5
+        article_1.date = datetime.datetime.today()
+        article_1.save()
+        article_2.bias = 2.5
+        article_2.date = datetime.datetime(2018, 12, 27)
+        article_2.save()
+        Country('namibia', [article_1, article_2]).save()
+        article_3.bias = 2.7
+        article_3.date = datetime.datetime(2018, 11, 6)
+        article_3.save()
+        Country('canada', [article_3]).save()
+        plot_country_day('namibia')
+        scatter = plotly.graph_objs.Scatter(x = [1.5], y = [datetime.datetime.today().strftime('%Y-%m-%d')], mode = 'markers')
+        plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
 
     def test_plot_for_country_all(self):
+        Country.drop_collection()
+        Article.drop_collection()
         [article_1, article_2, article_3] = [Article("title1", "text1", "link1"), Article("title2", "text2", "link2"), Article("title3", "text3", "link3")]
         article_1.bias = 1.5
         article_1.date = datetime.datetime(2018, 9, 10)
@@ -142,7 +159,42 @@ class test_plotly_mapping(unittest.TestCase):
         plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
 
     def test_plot_for_day(self):
+        Country.drop_collection()
+        Article.drop_collection()
+        [article_1, article_2, article_3] = [Article("title1", "text1", "link1"), Article("title2", "text2", "link2"), Article("title3", "text3", "link3")]
+        article_1.bias = 1.5
+        article_1.date = datetime.datetime.today()
+        article_1.save()
+        article_2.bias = 2.5
+        article_2.date = datetime.datetime(2018, 12, 27)
+        article_2.save()
+        Country('namibia', [article_1, article_2]).save()
+        article_3.bias = 2.7
+        article_3.date = datetime.datetime.today()
+        article_3.save()
+        Country('canada', [article_3]).save()
         plot_day_all()
+        scatter = plotly.graph_objs.Scatter(x = [1.5, 2.7], y = [datetime.datetime.today().strftime('%Y-%m-%d'),datetime.datetime.today().strftime('%Y-%m-%d')], mode = 'markers')
+        plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
+
+    def test_plot_all(self):
+        Country.drop_collection()
+        Article.drop_collection()
+        [article_1, article_2, article_3] = [Article("title1", "text1", "link1"), Article("title2", "text2", "link2"), Article("title3", "text3", "link3")]
+        article_1.bias = 1.5
+        article_1.date = datetime.datetime.today()
+        article_1.save()
+        article_2.bias = 2.5
+        article_2.date = datetime.datetime(2018, 12, 27)
+        article_2.save()
+        Country('namibia', [article_1, article_2]).save()
+        article_3.bias = 2.7
+        article_3.date = datetime.datetime.today()
+        article_3.save()
+        Country('canada', [article_3]).save()
+        plot_all()
+        scatter = plotly.graph_objs.Scatter(x = [1.5, 2.5, 2.7], y = [datetime.datetime.today().strftime('%Y-%m-%d'), "2018-12-27", datetime.datetime.today().strftime('%Y-%m-%d')], mode = 'markers')
+        plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
 
 def setUpModule():
     home_page = get_html_text('mock_html/rt/home.html')
