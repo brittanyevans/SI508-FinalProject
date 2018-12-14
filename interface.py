@@ -4,7 +4,14 @@ from countries_articles import *
 import sys
 import os
 
+def update():
+    os.remove('state_media_cache.sqlite')
+    get_rt_data()
+    get_cctv_data()
+    get_dw_data()
+    
 def __main__():
+    update()
     commands = '''
 list countries:
 result: lists the names of all of the countries that are currently in the database
@@ -45,10 +52,7 @@ exits the program
             if command == 'help':
                 print(commands)
             elif command == 'update':
-                os.remove('state_media_cache.sqlite')
-                get_rt_data()
-                get_cctv_data()
-                get_dw_data()
+                update()
                 print("The update is complete.")
             elif command == 'exit':
                 print("Goodbye!")
