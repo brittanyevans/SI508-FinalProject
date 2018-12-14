@@ -9,7 +9,7 @@ def update():
     get_rt_data()
     get_cctv_data()
     get_dw_data()
-    
+
 def __main__():
     update()
     commands = '''
@@ -68,6 +68,10 @@ exits the program
                     plot_all()
                 elif command_2 == 'today':
                     plot_day_all()
+                elif command_2 in country_lst: # this isn't in the commands, but error handles as a prediction that the user wants to plot all from a country
+                    plot_country_all(command_2)
+                else:
+                    print(user_error_msg)
             else:
                 print(user_error_msg)
         elif len(user_inp.lower().split()) == 3:
