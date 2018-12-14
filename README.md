@@ -29,37 +29,31 @@ I have chosen this list tentatively because these sites are popular and known to
  * [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) `pip install BeautifulSoup4`
  * [requests](http://docs.python-requests.org/en/v2.7.0/user/install/) `pip install requests`
  * [requests-cache](https://requests-cache.readthedocs.io/en/latest/user_guide.html) (this program uses the default `sql-lite` backend)`pip install requests-cache`
- * [numpy](http://www.numpy.org/)for random number generation
+ * [numpy](http://www.numpy.org/) (for random number generation) `pip install numpy`
 #### For the database:
  * [mongoengine](http://docs.mongoengine.org/tutorial.html) `pip install mongoengine`
- If you want to use a different database, you will need to change the database fields in the `secrets.py`
+ If you want to use a different database, you will need to change the database fields in the `secrets.py` file
 #### For plotting:
  * [Plotly](https://plot.ly/python/) `pip install plotly`
  * Get an API key for [Plotly](https://plot.ly/python/) for Python users
-#### A note on the database
-T
-  ## Running the program
+
+## Running the program
 * Clone the project `git clone https://github.com/brittanyevans/SI508-FinalProject.git`
 * Create a file called `secrets.py` to store:
   * Plotly credentials as `plotly_credentials`
-  * A MongoDB database to connect to as `db_vals`. I've already set up a database in a cloud environment using [mLab](https://mlab.com/home) that will be easy to get you started. I've kept some sample credentials in the `secrets.py.example`that will work with the database that I've set up for you to use. 
+  * Information about a MongoDB database to connect to as `db_vals`. I've already set up a database in a cloud environment using [mLab](https://mlab.com/home) that will be easy to get you started. I've kept some sample credentials in the `secrets.py.example` file that will work with the database that I've set up for you to use. 
   * See `secrets.py.example` for an example of this file
-  
- 
-  * In the terminal, navigate to your directory and call `python3 interface.py`. You will be prompted with instructions to begin:
+* In the terminal, navigate to your directory and call `python3 interface.py`. You will be prompted with instructions to begin:
 
 ![alt-text](https://github.com/brittanyevans/SI508-FinalProject/blob/master/welcome_mesage.png "Welcome Message")
 
 Go ahead and use it. The program will tell you if it does not understand commands that you enter into the command prompt.
 
 ### Examples
-If I wanted to see all of today's articles from Germany, I would use the commmand `plot today germany` as indicated above. Here is an example of a possible output: 
-
-INSERT PHOTO HERE
 
 If I wanted to see all of the articles from Russia, I would use the command `plot country russia` as indicated above. Here is an example of a possible output:
 
-INSERT PHOTO HERE
+![alt-text](https://github.com/brittanyevans/SI508-FinalProject/blob/master/all_russia.png "Example image")
 
 ## Testing
 The test suite ensures that article scraping, api calls, the database, and plotting is done as intended. Test this project by running `python3 test_media_proj.py`
@@ -71,20 +65,23 @@ The test suite ensures that article scraping, api calls, the database, and plott
         * 1 API
     * Caching:
         * `requests-cache` is used for development
-    * Processing data from the scraped pages to extract an article's title, text, and link information. This information is added to an article class, which is inherited from the Country class. This article then generates a date and makes a request to the API for the bias  score. 
+        * When running the `interface.py` file, caching is not utilized because the program must update the database with new data; however, when running the `scraping.py` file directly (for development purposes) caching is fully implemented with the `requests-cache` library
+    * Processing data from the scraped pages to extract an article's title, text, and link information. This information is added to an Article database object, which is a child of the Country class. The program then generates a date and makes a request to the API for the bias score and ads them to the article before saving it in the database. 
     * Imports libraries such as mongoengine, BeautifulSoup4, sys, and os
-    * A test suite that contains more than 2 subclasses and 10 non-trivial tests
-    * New project produces visualizations of queryed data from the database
+    * A test suite that contains 7 subclasses (1 for Plotly, 1 for each of the 2 classes, 1 for bias values, and 1 for each of the 3 scraping methods) and 16 non-trivial tests within those subclasses
+    * Running project produces interactive interface that results in visualizations of queryed data from the database
     * 2 classes that represent a Country and an Article. In this case, a country ***has*** an article
  * Second-Level Requirements
     * Scraping data that comes in HTML from BeautifulSoup4
-    * Uses a few libraries that we did not study in class (etc. mongoengine) 
-    * Uses object inheritance 
-    * Accesses a REST API that we did not cover in class
+    * Uses a few libraries that we did not study in class (mongoengine, requests-cache, etc.) 
+    * Uses object inheritance (All classes inherit from the mongoengine Document class)
+    * Accesses a REST API that we did not cover in class (Currently returning errors, but will work when back up. See above)
     * Interacts with a NoSQL database
 * Third-Level Requirements
     * A clear visualization of data using Plot.ly
     * Project is interactive in the command line. 
 ## Future Plans
+* Continue to ~annoy~ email conner@connerpro.com because I am very sad that his API is down. It will be fun to investigate trends when possible. 
+* Implement automation using a CronJob
 
-Thanks for reading! 
+## Thanks for reading! 
