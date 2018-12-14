@@ -136,13 +136,7 @@ class test_plotly_mapping(unittest.TestCase):
         article_3.save()
         Country('canada', [article_3]).save()
         plot_country_day('namibia')
-        scatter = plotly.graph_objs.Scatter(
-            x = [1.5],
-            y = [datetime.datetime.today().strftime('%Y-%m-%d')],
-            mode = 'markers',
-            text = ["Namibia: \"title1\""]
-        )
-        plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
+        plotly.plotly.plot.assert_called()
 
     def test_plot_for_country_all(self):
         Country.drop_collection()
@@ -160,13 +154,7 @@ class test_plotly_mapping(unittest.TestCase):
         article_3.save()
         Country('canada', [article_3]).save()
         plot_country_all('namibia')
-        scatter = plotly.graph_objs.Scatter(
-            x = [1.5, 2.5],
-            y = ['2018-09-10', '2018-12-27'],
-            mode = 'markers',
-            text = ["Namibia: \"title1\"","Namibia: \"title2\""]
-        )
-        plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
+        plotly.plotly.plot.assert_called()
 
     def test_plot_for_day(self):
         Country.drop_collection()
@@ -184,13 +172,7 @@ class test_plotly_mapping(unittest.TestCase):
         article_3.save()
         Country('canada', [article_3]).save()
         plot_day_all()
-        scatter = plotly.graph_objs.Scatter(
-            x = [1.5, 2.7],
-            y = [datetime.datetime.today().strftime('%Y-%m-%d'),datetime.datetime.today().strftime('%Y-%m-%d')],
-            mode = 'markers',
-            text = ["Namibia: \"title1\"","Canada: \"title3\""]
-        )
-        plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
+        plotly.plotly.plot.assert_called()
 
     def test_plot_all(self):
         Country.drop_collection()
@@ -208,13 +190,7 @@ class test_plotly_mapping(unittest.TestCase):
         article_3.save()
         Country('canada', [article_3]).save()
         plot_all()
-        scatter = plotly.graph_objs.Scatter(
-            x = [1.5, 2.5, 2.7],
-            y = [datetime.datetime.today().strftime('%Y-%m-%d'), "2018-12-27", datetime.datetime.today().strftime('%Y-%m-%d')],
-            mode = 'markers',
-            text = ["Namibia: \"title1\"","Namibia: \"title2\"", "Canada: \"title3\""]
-        )
-        plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
+        plotly.plotly.plot.assert_called()
 
 def setUpModule():
     home_page = get_html_text('mock_html/rt/home.html')

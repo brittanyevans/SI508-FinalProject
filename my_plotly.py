@@ -14,22 +14,33 @@ date_values = []
 bias_values = []
 marker_values = []
 
-def plot():
+def plot(title="Needs Title"):
     N = len(bias_values)
     bias = bias_values
     date = date_values
     text = marker_values
 
+    layout = go.Layout(
+        title = title,
+        xaxis = dict(
+            title = "Political Bias Score"
+        ),
+        yaxis = dict(
+            title = "Date"
+        )
+    )
     # Create a trace
     trace = go.Scatter(
         x = bias,
         y = date,
         mode = 'markers',
         text = text
+
     )
 
     data = [trace]
-    py.plot(data, filename='basic-line')
+    figure = go.Figure(data=data, layout=layout)
+    py.plot(figure, filename='basic-line')
 # plot article from all countries for the day
 def plot_day_all():
     for country in Country.objects:
@@ -38,7 +49,7 @@ def plot_day_all():
                     bias_values.append(article.bias)
                     date_values.append(article.date.strftime('%Y-%m-%d'))
                     marker_values.append(country.name.capitalize() + ': "' + article.title + '"')
-    plot()
+    plot("All Articles Today")
     bias_values.clear()
     date_values.clear()
     marker_values.clear()
@@ -50,7 +61,7 @@ def plot_all():
             bias_values.append(article.bias)
             date_values.append(article.date.strftime('%Y-%m-%d'))
             marker_values.append(country.name.capitalize() + ': "' + article.title + '"')
-    plot()
+    plot("All Articles")
     bias_values.clear()
     date_values.clear()
     marker_values.clear()
@@ -63,7 +74,7 @@ def plot_country_all(country_name):
             bias_values.append(article.bias)
             date_values.append(article.date.strftime('%Y-%m-%d'))
             marker_values.append(country_name.capitalize() + ': "' + article.title + '"')
-    plot()
+    plot("All Articles from {}".format(country_name.capitalize()))
     bias_values.clear()
     date_values.clear()
     marker_values.clear()
@@ -76,7 +87,7 @@ def plot_country_day(country_name):
             bias_values.append(article.bias)
             date_values.append(article.date.strftime('%Y-%m-%d'))
             marker_values.append(country_name.capitalize() + ': "' + article.title + '"')
-    plot()
+    plot("Articles from {} Today".format(country_name.capitalize()))
     bias_values.clear()
     date_values.clear()
     marker_values.clear()
