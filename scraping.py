@@ -1,4 +1,5 @@
 from countries_articles import *
+from secrets import db_vals
 from bs4 import BeautifulSoup
 import requests
 import requests_cache
@@ -10,7 +11,7 @@ import datetime
 # set up cache
 requests_cache.install_cache('state_media_cache')
 # set up db
-connect('statemediadb')
+connect(db_vals['name'], host=db_vals['host'], port=db_vals['port'], username=db_vals['username'], password=db_vals['password'])
 
 bias_base_url = 'https://topbottomcenter.com/api/'
 rt_base_url = 'https://www.rt.com'
@@ -19,10 +20,12 @@ dw_base_url = 'https://www.dw.com/en/top-stories/s-9097'
 
 # when API is back, remove the random number and the use post requests below
 def get_api_bias_values(title, text):
-    return random.random()
-    # response = requests.post(bias_base_url, data={'title': title, 'text': text}, headers={'Accept':'application/json'})
-    # print(response)
-    # return float(response['political_bias'])
+    try:
+        request_post = requests.post(bias_base_url, data={'title': title, 'text': text}, headers={'Accept':'application/json'})
+        response = request_post.json()
+        return float(response['political_bias'])
+    except:
+        return round(random.uniform(-1.0, 1.0),3)
 
 # get bias values for articles that are already in the database
 def update_bias_values():

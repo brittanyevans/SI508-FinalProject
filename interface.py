@@ -2,6 +2,7 @@ from my_plotly import *
 from scraping import *
 from countries_articles import *
 import sys
+import os
 
 def __main__():
     commands = '''
@@ -26,7 +27,7 @@ help:
 lists all available commands
 
 update:
-updates the database manually
+updates the database
 
 exit:
 exits the program
@@ -44,6 +45,7 @@ exits the program
             if command == 'help':
                 print(commands)
             elif command == 'update':
+                os.remove('state_media_cache.sqlite')
                 get_rt_data()
                 get_cctv_data()
                 get_dw_data()
