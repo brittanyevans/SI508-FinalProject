@@ -29,14 +29,15 @@ I have chosen this list tentatively because these sites are popular and known to
  * [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) `pip install BeautifulSoup4`
  * [requests](http://docs.python-requests.org/en/v2.7.0/user/install/) `pip install requests`
  * [requests-cache](https://requests-cache.readthedocs.io/en/latest/user_guide.html) (this program uses the default `sql-lite` backend)`pip install requests-cache`
+ * [numpy](http://www.numpy.org/)for random number generation
 #### For the database:
- * [MongoDB](https://docs.mongodb.com/manual/installation/)
  * [mongoengine](http://docs.mongoengine.org/tutorial.html) `pip install mongoengine`
  If you want to use a different database, you will need to change the database fields in the `secrets.py`
 #### For plotting:
  * [Plotly](https://plot.ly/python/) `pip install plotly`
  * Get an API key for [Plotly](https://plot.ly/python/) for Python users
- 
+#### A note on the database
+T
   ## Running the program
 * Clone the project `git clone https://github.com/brittanyevans/SI508-FinalProject.git`
 * Create a file called `secrets.py` to store:
