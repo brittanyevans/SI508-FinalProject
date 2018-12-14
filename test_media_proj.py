@@ -45,9 +45,9 @@ class test_rt_article_scraping(unittest.TestCase):
         m.get('https://www.rt.com/article-3', text=article_3)
 
         Article.drop_collection()
-        get_rt_data() # makes one request for the home page, one request for each of the three articles
-        get_rt_data() # makes one request for the home page, no requests for each of the three articles
-        self.assertEqual(m.call_count, 5)
+        get_rt_data() # makes one request for the home page, one request for each of the three articles, one request for the bias values api
+        get_rt_data() # makes one request for the home page, no requests for each of the three articles, one request for the bias values api
+        self.assertEqual(m.call_count, 8)
 
 class test_cctv_article_scraping(unittest.TestCase):
     def test_returns_correct_number_of_articles_in_list(self):
@@ -72,9 +72,9 @@ class test_cctv_article_scraping(unittest.TestCase):
         m.get('http://english.cctv.com/side-article.html', text=article_2_c)
 
         Article.drop_collection()
-        get_cctv_data() # makes one request for the home page, one request for each of the two articles
-        get_cctv_data() # makes one request for the home page, no requests for each of the two articles
-        self.assertEqual(m.call_count, 4)
+        get_cctv_data() # makes one request for the home page, one request for each of the two articles, one request for the bias values api
+        get_cctv_data() # makes one request for the home page, no requests for each of the two articles, one request for the bias values api
+        self.assertEqual(m.call_count, 6)
 
 class test_dw_article_scraping(unittest.TestCase):
     def test_returns_correct_number_of_articles_in_list(self):
@@ -99,9 +99,9 @@ class test_dw_article_scraping(unittest.TestCase):
         m.get('https://www.dw.com/en/top-stories/s-9097/side-article', text=article_2_d)
 
         Article.drop_collection()
-        get_dw_data() # makes one request for the home page, one request for each of the two articles
-        get_dw_data() # makes one request for the home page, no requests for each of the two articles
-        self.assertEqual(m.call_count, 4)
+        get_dw_data() # makes one request for the home page, one request for each of the two articles, one request for the bias values api
+        get_dw_data() # makes one request for the home page, no requests for each of the two articles, one request for the bias values api
+        self.assertEqual(m.call_count, 6)
 
 class test_get_bias_values(unittest.TestCase):
     def test_api_call(self):
@@ -136,7 +136,12 @@ class test_plotly_mapping(unittest.TestCase):
         article_3.save()
         Country('canada', [article_3]).save()
         plot_country_day('namibia')
-        scatter = plotly.graph_objs.Scatter(x = [1.5], y = [datetime.datetime.today().strftime('%Y-%m-%d')], mode = 'markers')
+        scatter = plotly.graph_objs.Scatter(
+            x = [1.5],
+            y = [datetime.datetime.today().strftime('%Y-%m-%d')],
+            mode = 'markers',
+            text = ["Namibia: \"title1\""]
+        )
         plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
 
     def test_plot_for_country_all(self):
@@ -155,7 +160,12 @@ class test_plotly_mapping(unittest.TestCase):
         article_3.save()
         Country('canada', [article_3]).save()
         plot_country_all('namibia')
-        scatter = plotly.graph_objs.Scatter(x = [1.5, 2.5], y = ['2018-09-10', '2018-12-27'], mode = 'markers')
+        scatter = plotly.graph_objs.Scatter(
+            x = [1.5, 2.5],
+            y = ['2018-09-10', '2018-12-27'],
+            mode = 'markers',
+            text = ["Namibia: \"title1\"","Namibia: \"title2\""]
+        )
         plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
 
     def test_plot_for_day(self):
@@ -174,7 +184,12 @@ class test_plotly_mapping(unittest.TestCase):
         article_3.save()
         Country('canada', [article_3]).save()
         plot_day_all()
-        scatter = plotly.graph_objs.Scatter(x = [1.5, 2.7], y = [datetime.datetime.today().strftime('%Y-%m-%d'),datetime.datetime.today().strftime('%Y-%m-%d')], mode = 'markers')
+        scatter = plotly.graph_objs.Scatter(
+            x = [1.5, 2.7],
+            y = [datetime.datetime.today().strftime('%Y-%m-%d'),datetime.datetime.today().strftime('%Y-%m-%d')],
+            mode = 'markers',
+            text = ["Namibia: \"title1\"","Canada: \"title3\""]
+        )
         plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
 
     def test_plot_all(self):
@@ -193,7 +208,12 @@ class test_plotly_mapping(unittest.TestCase):
         article_3.save()
         Country('canada', [article_3]).save()
         plot_all()
-        scatter = plotly.graph_objs.Scatter(x = [1.5, 2.5, 2.7], y = [datetime.datetime.today().strftime('%Y-%m-%d'), "2018-12-27", datetime.datetime.today().strftime('%Y-%m-%d')], mode = 'markers')
+        scatter = plotly.graph_objs.Scatter(
+            x = [1.5, 2.5, 2.7],
+            y = [datetime.datetime.today().strftime('%Y-%m-%d'), "2018-12-27", datetime.datetime.today().strftime('%Y-%m-%d')],
+            mode = 'markers',
+            text = ["Namibia: \"title1\"","Namibia: \"title2\"", "Canada: \"title3\""]
+        )
         plotly.plotly.plot.assert_called_with([scatter], filename='basic-line')
 
 def setUpModule():
