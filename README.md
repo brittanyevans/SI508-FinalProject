@@ -36,7 +36,9 @@ I have chosen this list tentatively because these sites are popular and known to
 #### For plotting:
  * [Plotly](https://plot.ly/python/) `pip install plotly`
  * Get an API key for [Plotly](https://plot.ly/python/) for Python users
-
+#### For testing:
+ * [requests-mock](https://requests-mock.readthedocs.io/en/latest/) `pip install requests_mock`
+ * [MongoDB](https://docs.mongodb.com/manual/administration/install-community/) Follow installation instructions for your system. Tests use a local version of MongoDB. Start mongodb with the command `mongod` before running the tests.
 ## Running the program
 * Clone the project `git clone https://github.com/brittanyevans/SI508-FinalProject.git`
 * Create a file called `secrets.py` to store:
@@ -57,6 +59,8 @@ If I wanted to see all of the articles from Russia, I would use the command `plo
 
 ## Testing
 The test suite ensures that article scraping, api calls, the database, and plotting is done as intended. Test this project by running `python3 test_media_proj.py`
+
+Reminder: MongoDB MUST be running! Tests use a local version of MongoDB. Start mongodb with the command `mongod` before running the tests.
 
 ## Project Requirements Met in this Project
  * Base Requirements
