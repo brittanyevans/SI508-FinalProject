@@ -5,7 +5,7 @@ This project analyzes the political bias in English language state-funded media 
 ## Data Sources
 [**Top Bottom Center API**](https://topbottomcenter.com/api_info/) takes in an article title and article text and returns a measurement of political bias on a scale of -1 to 1  in a json response. 
 
-***PLEASE NOTE THAT THIS API IS CURRENTLY DOWN. THE PROGRAM CURRENTLY RETURNS RANDOM VALUES  BUT IS EQUIPPED TO HANDLE THE REQUESTS AUTOMATICALLY WHEN THE API IS BACK UP. PLEASE SEE LINES 21-25 FROM 'scraping.py' IF INTERESTED. I WAS TOLD BY INSTRUCTORS I AM FINE SINCE I CANNOT CONTROL THAT IT WAS TAKEN DOWN AFTER I HAD ALREADY IMPLEMENTED IT. [Here](https://github.com/brittanyevans/SI508-FinalProject/blob/master/University%20of%20Michigan%20Mail%20-%20404%20on%20API%20Request.pdf) is a copy of my communications with the developer***
+***PLEASE NOTE THAT THIS API IS CURRENTLY DOWN. THE PROGRAM CURRENTLY RETURNS RANDOM VALUES  BUT IS EQUIPPED TO HANDLE THE REQUESTS AUTOMATICALLY WHEN THE API IS BACK UP. PLEASE SEE LINES 21-25 FROM 'scraping.py' IF INTERESTED. I WAS TOLD BY INSTRUCTORS I AM FINE SINCE I CANNOT CONTROL THAT IT WAS TAKEN DOWN AFTER I HAD ALREADY IMPLEMENTED IT***
 
 * Endpoint: https://topbottomcenter.com/api/ 
 * Required Parameters: article title, article text
@@ -85,7 +85,6 @@ Reminder: MongoDB MUST be running! Tests use a local version of MongoDB. Start m
     * A clear visualization of data using Plot.ly
     * Project is interactive in the command line. 
 ## Future Plans
-* Continue to ~annoy~ email conner@connerpro.com because I am very sad that his API is down. It will be fun to investigate trends when possible. 
 * Implement automation using a CronJob
 
 ## Thanks for reading! 
